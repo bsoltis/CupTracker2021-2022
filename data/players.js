@@ -3,70 +3,70 @@ let players = [
         "name": "Brian",
         "points": 0,
         "teams" : [
-            "PIT",
-            "TBL",
-            "NYR",
-            "NYI"
+            "BOS",
+            "CAR",
+            "NSH",
+            "CAL"
         ]
     },
     {
         "name": "Chris",
         "points": 0,
         "teams" : [
-            "MTL",
-            "SEA",
-            "VGK",
-            "ANA"
+            "FLA",
+            "NJD",
+            "WPG",
+            "VAN"
         ]
     },
     {
         "name": "Kyle",
         "points": 0,
         "teams" : [
-            "WPG",
-            "WSH",
-            "EDM",
-            "BUF"
+            "PIT",
+            "CHI",
+            "SEA",
+            "PHI"
         ]
     },
     {
         "name": "Nick",
         "points": 0,
         "teams" : [
-            "VAN",
-            "FLA",
-            "OTT",
-            "DAL"
+            "VGK",
+            "MIN",
+            "BUF",
+            "ANA"
         ]
     },
     {
         "name": "Jack",
         "points": 0,
         "teams" : [
-            "CAR",
-            "CBJ",
-            "ARI",
-            "DET"
+            "COL",
+            "WSH",
+            "STL",
+            "OTT"
         ]
     },
     {
         "name": "Tim",
         "points": 0,
         "teams" : [
-            "BOS",
-            "MIN",
-            "NSH",
-            "NJD"
+            "NYI",
+            "TOR",
+            "DAL",
+            "LAK"
         ]
     },
     {
         "name": "Matt",
         "points": 0,
         "teams" : [
-            "STL",
-            "SJS",
-            "COL",
-            "CHI"
+            "TBL",
+            "EDM",
+            "NYR",
+            "MTL"
         ]
     } 
 ]
