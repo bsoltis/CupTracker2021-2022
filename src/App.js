@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Players from './components/Players';
 import TeamLogo from './components/TeamLogo';
+import Leaders from './components/Leaders';
 
 class App extends React.Component {
     constructor(props) {
@@ -86,6 +87,16 @@ class App extends React.Component {
         }
 
         this.findTeamInPlayers = this.findTeamInPlayers.bind(this)
+        this.addOneToPoints = this.addOneToPoints.bind(this)
+    }
+
+    addOneToPoints(players, name) {
+        for(var key in players){
+            if(players[key].name == name){
+                players[key].points = players[key].points + 1;
+            }
+        }
+        return players;
     }
 
     findTeamInPlayers(player) {
@@ -118,11 +129,29 @@ class App extends React.Component {
 
                                         if (game.scores[this.state.currentCupHolder.abbreviation] < game.scores[otherTeam.abbreviation]) {
                                             // cup switches
-                                            this.setState({ currentCupHolder: otherTeam})
-                                            var team = this.state.players.find(this.findTeamInPlayers)
+                                            this.setState({currentCupHolder: otherTeam})
+
+                                            var stateCopy = [...this.state.players];
+                                            var team = stateCopy.find(this.findTeamInPlayers)
                                             if (team !== undefined) {
-                                                team.points = team.points + 1
+                                                this.addOneToPoints(stateCopy, team.name)
                                             }
+
+                                            this.setState({ 
+                                                players: stateCopy 
+                                            })
+                                        }
+                                        else
+                                        {
+                                            var stateCopy = [...this.state.players];
+                                            var team = stateCopy.find(this.findTeamInPlayers)
+                                            if (team !== undefined) {
+                                                this.addOneToPoints(stateCopy, team.name)
+                                            }
+                                            
+                                            this.setState({ 
+                                                players: stateCopy 
+                                            })
                                         }
                                     }
                                 }
@@ -142,16 +171,18 @@ class App extends React.Component {
             <header className="App-header">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-7">
-                            <h3>Current Cup Leaders</h3>
-                        </div>
-                        <div className="col-5">
+                    <div className="col-md-5 mb-4">
                             <h3>Current Cup Holder</h3>
                             <h6 id="teamName">
                                 {this.state.currentCupHolder.locationName + ' ' + this.state.currentCupHolder.teamName}
                             </h6>
                             <TeamLogo teamId={this.state.currentCupHolder.id} />
                         </div>
+                        <div className="col-md-7">
+                            <h3>Current Cup Leaders</h3>
+                            <Leaders players={this.state.players} />
+                        </div>
+                        
                     </div>
                     <Players players={this.state.players} />
 
