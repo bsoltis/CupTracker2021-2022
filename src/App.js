@@ -88,6 +88,7 @@ class App extends React.Component {
 
         this.findTeamInPlayers = this.findTeamInPlayers.bind(this)
         this.addOneToPoints = this.addOneToPoints.bind(this)
+        this.calculate = this.calculate.bind(this)
     }
 
     addOneToPoints(players, name) {
@@ -103,66 +104,89 @@ class App extends React.Component {
         return player.teams.includes(this.state.currentCupHolder.abbreviation)
     }
 
-    componentDidMount() {
-        let today = new Date();
-        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let url = `https://nhl-score-api.herokuapp.com/api/scores?startDate=2021-10-12&endDate=${date}`
-        fetch(url)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    for (let i = 0; i < result.length; i++) {
+    calculate(result) {
+        for (let i = 0; i < result.length; i++) {
 
-                        let gamesOnDate = result[i];
-                        if (gamesOnDate.games.length > 0) {
-                            for (let j = 0; j < gamesOnDate.games.length; j++) {
-                                let game = gamesOnDate.games[j]
+            let gamesOnDate = result[i];
+            if (gamesOnDate.games.length > 0) {
+                for (let j = 0; j < gamesOnDate.games.length; j++) {
+                    let game = gamesOnDate.games[j]
 
-                                if (game.status.state === 'FINAL') {
-                                    if (game.teams.away.abbreviation === this.state.currentCupHolder.abbreviation || game.teams.home.abbreviation === this.state.currentCupHolder.abbreviation) {
-                                        var otherTeam = game.teams.away
-                                        var homeTeam = game.teams.home
-                                        var isCurrentCupHolderHome = this.state.currentCupHolder.abbreviation === homeTeam.abbreviation
-                                        if (!isCurrentCupHolderHome) {
-                                            otherTeam = game.teams.home
-                                        }
+                    if (game.status.state === 'FINAL') {
+                        if (game.teams.away.abbreviation === this.state.currentCupHolder.abbreviation || game.teams.home.abbreviation === this.state.currentCupHolder.abbreviation) {
+                            var otherTeam = game.teams.away
+                            var homeTeam = game.teams.home
+                            var isCurrentCupHolderHome = this.state.currentCupHolder.abbreviation === homeTeam.abbreviation
+                            if (!isCurrentCupHolderHome) {
+                                otherTeam = game.teams.home
+                            }
 
-                                        if (game.scores[this.state.currentCupHolder.abbreviation] < game.scores[otherTeam.abbreviation]) {
-                                            // cup switches
-                                            this.setState({currentCupHolder: otherTeam})
+                            if (game.scores[this.state.currentCupHolder.abbreviation] < game.scores[otherTeam.abbreviation]) {
+                                // cup switches
+                                this.setState({currentCupHolder: otherTeam})
 
-                                            var stateCopy = [...this.state.players];
-                                            var team = stateCopy.find(this.findTeamInPlayers)
-                                            if (team !== undefined) {
-                                                this.addOneToPoints(stateCopy, team.name)
-                                            }
-
-                                            this.setState({ 
-                                                players: stateCopy 
-                                            })
-                                        }
-                                        else
-                                        {
-                                            var stateCopy = [...this.state.players];
-                                            var team = stateCopy.find(this.findTeamInPlayers)
-                                            if (team !== undefined) {
-                                                this.addOneToPoints(stateCopy, team.name)
-                                            }
-                                            
-                                            this.setState({ 
-                                                players: stateCopy 
-                                            })
-                                        }
-                                    }
+                                var stateCopy = [...this.state.players];
+                                var team = stateCopy.find(this.findTeamInPlayers)
+                                if (team !== undefined) {
+                                    this.addOneToPoints(stateCopy, team.name)
                                 }
+
+                                this.setState({ 
+                                    players: stateCopy 
+                                })
+                            }
+                            else
+                            {
+                                var stateCopy = [...this.state.players];
+                                var team = stateCopy.find(this.findTeamInPlayers)
+                                if (team !== undefined) {
+                                    this.addOneToPoints(stateCopy, team.name)
+                                }
+                                
+                                this.setState({ 
+                                    players: stateCopy 
+                                })
                             }
                         }
                     }
-                },
-                (error) => {
-                   
                 }
-            )
+            }
+        }
+    }
+
+    componentDidMount() {
+        var now = new Date();
+        var daysOfYear = [];
+        for (var d = new Date(2021, 9, 12); d <= now; d.setDate(d.getDate() + 1)) {
+            daysOfYear.push(new Date(d));
+        }
+
+        let promises = []
+
+        for (let i = 0; i < daysOfYear.length; i = i + 15) {
+            if ((i + 14) > daysOfYear.length) {
+                let startDate = daysOfYear[i].getFullYear() + '-' + (daysOfYear[i].getMonth() + 1) + '-' + daysOfYear[i].getDate();
+                let endDate = daysOfYear[daysOfYear.length - 1].getFullYear() + '-' + (daysOfYear[daysOfYear.length - 1].getMonth() + 1) + '-' + daysOfYear[daysOfYear.length - 1].getDate();
+                let url = `https://nhl-score-api.herokuapp.com/api/scores?startDate=${startDate}&endDate=${endDate}`
+                promises.push(fetch(url).then(res => res.json()))
+            } else {
+                let startDate = daysOfYear[i].getFullYear() + '-' + (daysOfYear[i].getMonth() + 1) + '-' + daysOfYear[i].getDate();
+                let endDate = daysOfYear[i + 14].getFullYear() + '-' + (daysOfYear[i + 14].getMonth() + 1) + '-' + daysOfYear[i + 14].getDate();
+                let url = `https://nhl-score-api.herokuapp.com/api/scores?startDate=${startDate}&endDate=${endDate}`
+                promises.push(fetch(url).then(res => res.json()))
+            }
+        }
+        
+        let result = []
+        Promise.all(promises).then(data => {
+            data.forEach(element => {
+                element.forEach(day => {
+                    result.push(day)
+                })
+            })
+
+            this.calculate(result)
+        })
     }
 
     render() {
