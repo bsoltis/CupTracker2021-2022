@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/CupTracker2021-2022/static/css/main.0ffdf74f.chunk.css",
-    "main.js": "/CupTracker2021-2022/static/js/main.c937580d.chunk.js",
-    "main.js.map": "/CupTracker2021-2022/static/js/main.c937580d.chunk.js.map",
+    "main.css": "/CupTracker2021-2022/static/css/main.f9e30044.chunk.css",
+    "main.js": "/CupTracker2021-2022/static/js/main.341f453a.chunk.js",
+    "main.js.map": "/CupTracker2021-2022/static/js/main.341f453a.chunk.js.map",
     "runtime-main.js": "/CupTracker2021-2022/static/js/runtime-main.766f3f74.js",
     "runtime-main.js.map": "/CupTracker2021-2022/static/js/runtime-main.766f3f74.js.map",
-    "static/js/2.b7764c45.chunk.js": "/CupTracker2021-2022/static/js/2.b7764c45.chunk.js",
-    "static/js/2.b7764c45.chunk.js.map": "/CupTracker2021-2022/static/js/2.b7764c45.chunk.js.map",
+    "static/js/2.597a8c57.chunk.js": "/CupTracker2021-2022/static/js/2.597a8c57.chunk.js",
+    "static/js/2.597a8c57.chunk.js.map": "/CupTracker2021-2022/static/js/2.597a8c57.chunk.js.map",
     "static/js/3.b31ec2d4.chunk.js": "/CupTracker2021-2022/static/js/3.b31ec2d4.chunk.js",
     "static/js/3.b31ec2d4.chunk.js.map": "/CupTracker2021-2022/static/js/3.b31ec2d4.chunk.js.map",
     "index.html": "/CupTracker2021-2022/index.html",
-    "static/css/main.0ffdf74f.chunk.css.map": "/CupTracker2021-2022/static/css/main.0ffdf74f.chunk.css.map",
-    "static/js/2.b7764c45.chunk.js.LICENSE.txt": "/CupTracker2021-2022/static/js/2.b7764c45.chunk.js.LICENSE.txt"
+    "static/css/main.f9e30044.chunk.css.map": "/CupTracker2021-2022/static/css/main.f9e30044.chunk.css.map",
+    "static/js/2.597a8c57.chunk.js.LICENSE.txt": "/CupTracker2021-2022/static/js/2.597a8c57.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.766f3f74.js",
-    "static/js/2.b7764c45.chunk.js",
-    "static/css/main.0ffdf74f.chunk.css",
-    "static/js/main.c937580d.chunk.js"
+    "static/js/2.597a8c57.chunk.js",
+    "static/css/main.f9e30044.chunk.css",
+    "static/js/main.341f453a.chunk.js"
   ]
 }
