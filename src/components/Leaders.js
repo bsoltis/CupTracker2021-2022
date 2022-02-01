@@ -14,7 +14,7 @@ export default class Leaders extends Component {
                 <h6>2nd place</h6>
                 <ProgressBar now={players[1].points} label={`${players[1].points} - ${players[1].name}`} max={10} />
                 <h6>3rd place</h6>
-                <ProgressBar now={players[2].points} label={`${players[2].points} - ${players[1].name}`} max={10} />
+                <ProgressBar now={players[2].points} label={`${players[2].points} - ${players[2].name}`} max={10} />
             </div>
         )
     }
