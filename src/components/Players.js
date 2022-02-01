@@ -40,11 +40,11 @@ export default class Players extends Component {
         return (
             <div className="row justify-content-center mt-4">
                 {players.map(player => (
-                    <div className="col-4 text-center mt-2">
+                    <div key={player.name} className="col-4 text-center mt-2">
                         <h3>{player.name}</h3>
                         <ul className="list-group list-group-flush">
                         {player.teams.map(team => (
-                            <li className="list-group-item list-group-item-dark">{teams[team]}</li>
+                            <li className="list-group-item list-group-item-dark">{teams[team.name]} - {team.points}</li>
                         ))}
                         </ul>
                     </div>

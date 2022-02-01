@@ -16,71 +16,113 @@ class App extends React.Component {
                 {
                     "name": "Brian",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "BOS",
                         "CAR",
                         "NSH",
                         "CAL"
+                    ],
+                    "teams" : [
+                        { "name" : "BOS", "points": 0 },
+                        { "name" : "CAR", "points": 0 },
+                        { "name" : "NSH", "points": 0 },
+                        { "name" : "CAL", "points": 0 }
                     ]
                 },
                 {
                     "name": "Chris",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "FLA",
                         "NJD",
                         "WPG",
                         "VAN"
+                    ],
+                    "teams" : [
+                        { "name" : "FLA", "points": 0 },
+                        { "name" : "NJD", "points": 0 },
+                        { "name" : "WPG", "points": 0 },
+                        { "name" : "VAN", "points": 0 }
                     ]
                 },
                 {
                     "name": "Kyle",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "PIT",
                         "CHI",
                         "SEA",
                         "PHI"
+                    ],
+                    "teams" : [
+                        { "name" : "PIT", "points": 0 },
+                        { "name" : "CHI", "points": 0 },
+                        { "name" : "SEA", "points": 0 },
+                        { "name" : "PHI", "points": 0 }
                     ]
                 },
                 {
                     "name": "Nick",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "VGK",
                         "MIN",
                         "BUF",
                         "ANA"
+                    ],
+                    "teams" : [
+                        { "name" : "VGK", "points": 0 },
+                        { "name" : "MIN", "points": 0 },
+                        { "name" : "BUF", "points": 0 },
+                        { "name" : "ANA", "points": 0 }
                     ]
                 },
                 {
                     "name": "Jack",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "COL",
                         "WSH",
                         "STL",
                         "OTT"
+                    ],
+                    "teams" : [
+                        { "name" : "COL", "points": 0 },
+                        { "name" : "WSH", "points": 0 },
+                        { "name" : "STL", "points": 0 },
+                        { "name" : "OTT", "points": 0 }
                     ]
                 },
                 {
                     "name": "Tim",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "NYI",
                         "TOR",
                         "DAL",
                         "LAK"
+                    ],
+                    "teams" : [
+                        { "name" : "NYI", "points": 0 },
+                        { "name" : "TOR", "points": 0 },
+                        { "name" : "DAL", "points": 0 },
+                        { "name" : "LAK", "points": 0 }
                     ]
                 },
                 {
                     "name": "Matt",
                     "points": 0,
-                    "teams" : [
+                    "teamsArray" : [
                         "TBL",
                         "EDM",
                         "NYR",
                         "MTL"
+                    ],
+                    "teams" : [
+                        { "name" : "TBL", "points": 0 },
+                        { "name" : "EDM", "points": 0 },
+                        { "name" : "NYR", "points": 0 },
+                        { "name" : "MTL", "points": 0 }
                     ]
                 } 
             ]
@@ -95,13 +137,18 @@ class App extends React.Component {
         for(var key in players){
             if(players[key].name == name){
                 players[key].points = players[key].points + 1;
+                for (var teamKey in players[key].teams) {
+                    if (players[key].teams[teamKey].name === this.state.currentCupHolder.abbreviation) {
+                        players[key].teams[teamKey].points = players[key].teams[teamKey].points + 1;
+                    }
+                }
             }
         }
         return players;
     }
 
     findTeamInPlayers(player) {
-        return player.teams.includes(this.state.currentCupHolder.abbreviation)
+        return player.teamsArray.includes(this.state.currentCupHolder.abbreviation)
     }
 
     calculate(result) {
